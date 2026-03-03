@@ -1,0 +1,8 @@
+Django
+djangorestframework
+psycopg2
+drf-spectacular
+channels
+daphne
+djangorestframework-simplejwt
+channels-redis
