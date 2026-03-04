@@ -14,10 +14,8 @@ from rest_framework import status
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
    def validate(self, attrs):
        data = super().validate(attrs)
-       print(data)
        data.pop('refresh', None)
        data.pop('access', None)
-
 
        serializer = UserSerializerWithToken(self.user).data
        for key, value in serializer.items():
@@ -30,24 +28,12 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 class RegisterAPIView(APIView):
-
     def post(self, request):
-        data = request.data
-        try:
-            user = User.objects.create(
-                username = data['user_name'],
-                first_name = data['first_name'],
-                last_name = data['last_name'],
-                email = data['email'],
-                password = make_password(data['password'])
-            )
-            serializer = UserSerializerWithToken(user, many=False)
-            return Response(serializer.data)
-        
-        except Exception as e:
-            print(e)
-            message = {'detail':'user with this email already exists'}
-            return Response(message, status=status.HTTP_400_BAD_REQUEST)
+        serializer = UserSerializerWithToken(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response(UserSerializerWithToken(user).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
 class UserProfileAPIView(APIView):
