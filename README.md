@@ -112,7 +112,7 @@ url: <pre>http://127.0.0.1:8000/admin/</pre>
 
 ## Architecture, design decisions, and assumptions:
 
-When an agent connects to the WebSocket, they become available for conversations. When a visitor tries to reach an agent, the SessionChat model automatically finds an available agent and routes the visitor’s message to them.
+When an agent connects to the WebSocket, they become available for conversations. When a visitor tries to reach an agent, automatically finds an available agent and routes the visitor’s message to them.
 
 If an agent disconnects, they are automatically marked as unavailable. The system then selects another available agent to receive and handle incoming messages.
 
