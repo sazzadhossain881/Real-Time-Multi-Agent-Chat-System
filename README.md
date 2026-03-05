@@ -12,7 +12,7 @@ project description:
 
 3. visitor and agent both can see chat history.
 
-project features:
+## project features:
 
 I have dockerize python(django) application for this project and installed the required packages, which i have shared in requirements.txt file.
 
@@ -30,7 +30,7 @@ I have used JWT for creating the token based authentication.
 
 I have used Postman for testing the API's.
 
-installation and execution instructions:
+## installation and execution instructions:
 
 1.Clone the project from the git repository. Even you can download the zip file from the git repository.
 
@@ -38,23 +38,23 @@ git clone https://github.com/sazzadhossain881/Real-Time-Multi-Agent-Chat-System.
 
 Run the following commands:
 
-1. docker build .
+1. <pre>docker build .</pre>
 
-2. docker-compose build
+2. <pre>docker-compose build</pre>
 
-3. docker-compose run --rm app sh -c "python manage.py makemigrations"
+3. <pre>docker-compose run --rm app sh -c "python manage.py makemigrations"</pre>
 
-4. docker-compose run --rm app sh -c "python manage.py migrate"
+4. <pre>docker-compose run --rm app sh -c "python manage.py migrate"</pre>
 
-5. docker-compose run --rm app sh -c "python manage.py createsuperuser"
+5. <pre>docker-compose run --rm app sh -c "python manage.py createsuperuser"</pre>
 
-6. docker-compose up
+6. <pre>docker-compose up</pre>
 
-API usage examples:
+## API usage examples:
 
 Now, you have to authenticate yourself before doing any operation. To do that hit the login endpoint and pass the username and password in the body. You will get a token in the response. Copy token and paste it in the Headers section in Postman (Authorization: Bearer <your_token>). Now, you can perform any operation.:
 
-url: http://127.0.0.1:8000/api/users/register/
+url: <pre>http://127.0.0.1:8000/api/users/register/</pre>
 
 Request Body: 
 
@@ -78,7 +78,7 @@ Response:
     "token": ""
 }
 
-url: http://127.0.0.1:8000/api/users/login/
+url: <pre>http://127.0.0.1:8000/api/users/login/</pre>
 
 Request Body: 
 
@@ -100,21 +100,27 @@ Response:
 
 To see visitor or agent own conversations:
 
-url: http://127.0.0.1:8000/api/chat/my-message/
+url: <pre>http://127.0.0.1:8000/api/chat/my-message/</pre>
 
 To see visitor or agent specific conversations:
 
-http://127.0.0.1:8000/api/chat/my-message/<session_id>/
+url: <pre>http://127.0.0.1:8000/api/chat/my-message/<session_id>/</pre>
 
 You can also see the admin dashboard using the following url:
 
-url: http://127.0.0.1:8000/admin/
+url: <pre>http://127.0.0.1:8000/admin/</pre>
 
-Websocket Configuration:
+## Architecture, design decisions, and assumptions:
 
-url: https://websocketking.com/
+When an agent connects to the WebSocket, they become available for conversations. When a visitor tries to reach an agent, the SessionChat model automatically finds an available agent and routes the visitor’s message to them.
 
-ws://localhost:8000/ws/chat/?token=<your_token>
+If an agent disconnects, they are automatically marked as unavailable. The system then selects another available agent to receive and handle incoming messages.
+
+## Websocket Configuration:
+
+url: <pre>https://websocketking.com/</pre>
+
+url: <pre>ws://localhost:8000/ws/chat/?token=<your_token></pre>
 
 Body:
 
@@ -122,7 +128,7 @@ Body:
 "message":"Hello from visitor"
 }
 
-Database Schema:
+## Database Schema:
 
 This implementation has 3 main models: User, ChatSession, Message
 
@@ -133,7 +139,7 @@ ChatSession stores information agent, visitor, is_active
 Message stores information session, sender, content
 
 
-Future improvements:
+## Future improvements:
 
 1. File upload feature
 2. Typing indicator
